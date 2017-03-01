@@ -13,6 +13,13 @@
 
     class BookTest extends PHPUnit_Framework_TestCase
     {
+
+        protected function teardown()
+        {
+            Author::deleteAll();
+            Book::deleteAll();
+        }
+
         function testGetTitle()
         {
             // Arrange
@@ -55,5 +62,61 @@
             //Assert
             $this->assertEquals(1, $result);
         }
+
+        function testSave()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            //Act
+            $result = Book::getAll();
+
+            //Assert
+            $this->assertEquals($test_book, $result[0]);
+        }
+
+        function testGetAll()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $id2 = 1;
+            $title2 = "Frogs happen on things too";
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+            //Act
+            $result = Book::getAll();
+
+            //Assert
+            $this->assertEquals([$test_book, $test_book2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $id2 = 1;
+            $title2 = "Frogs happen on things too";
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+
+            //Act
+            Book::deleteAll();
+
+            //Assert
+            $result = Book::getAll();
+            $this->assertEquals([], $result);
+        }
+
     }
  ?>
