@@ -13,11 +13,11 @@
 
     class AuthorTest extends PHPUnit_Framework_TestCase
     {
-        // protected function teardown()
-        // {
-        //     Author::deleteAll();
-        //     Books::deleteAll();
-        // }
+        protected function teardown()
+        {
+            Author::deleteAll();
+            // Books::deleteAll();
+        }
 
         function testGetName()
         {
@@ -51,7 +51,7 @@
        {
            //Arrange
            $id = 1;
-           $name = "Wash the dog";
+           $name = "Gunther Marks";
            $test_name = new Author($name, $id);
 
            //Act
@@ -60,6 +60,63 @@
            //Assert
            $this->assertEquals(1, $result);
        }
+
+       function testSave()
+       {
+           //Arrange
+           $name = "Gunther Marks";
+           $id = 1;
+           $test_name = new Author($name, $id);
+           $test_name->save();
+
+           //Act
+           $result = Author::getAll();
+
+           //Assert
+           $this->assertEquals($test_name, $result[0]);
+       }
+
+        function testGetAll()
+        {
+            //Arrange
+            $name = "Gunther Marks";
+            $id = 1;
+            $test_name = new Author($name, $id);
+            $test_name->save();
+
+            $name2 = "Sarah Farmer";
+            $id2 = 2;
+            $test_name2 = new Author($name2, $id2);
+            $test_name2->save();
+
+            //Act
+            $result = Author::getAll();
+
+            //Assert
+            $this->assertEquals([$test_name, $test_name2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $name = "Gunther Marks";
+            $id = 1;
+            $test_name = new Author($name, $id);
+            $test_name->save();
+
+            $name2 = "Sarah Farmer";
+            $id2 = 2;
+            $test_name2 = new Author($name2, $id2);
+            $test_name2->save();
+
+            //Act
+            Author::deleteAll();
+
+            //Assert
+            $result = Author::getAll();
+            $this->assertEquals([], $result);
+        }
+
     }
 
  ?>

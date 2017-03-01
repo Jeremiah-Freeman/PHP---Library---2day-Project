@@ -23,5 +23,29 @@
         {
             return $this->id;
         }
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO authors (name) VALUES ('{$this->getName()}');");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function getAll()
+        {
+            $returned_authors = $GLOBALS['DB']->query("SELECT * FROM authors;");
+            $authors = [];
+            foreach($returned_authors as $author) {
+                $name = $author['name'];
+                $id = $author['id'];
+                $new_Author = new Author($name, $id);
+                array_push($authors, $new_Author);
+            }
+            return $authors;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM authors;");
+        }
      }
  ?>
