@@ -72,5 +72,29 @@
             return $found_author;
         }
 
+        // function addBook()
+        // {
+        //     $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$this->getId()}, {$this->getId()});");
+        // }
+        //
+        // function getBooks()
+        // {
+        //     $query = $GLOBALS['DB']->query("SELECT book_id FROM authors_books WHERE author_id = {$this->getId()};");
+        //     $book_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //     $books = [];
+        //     foreach($book_id as $id) {
+        //         $book_id = $id['book_id'];
+        //         $result = $GLOBALS['DB']->query("SELECT * FROM books WHERE id = {$book_id};");
+        //         $returned_book = $result->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //         $title = returned_book[0]['title'];
+        //         $id = returned_book[0]['id'];
+        //         $new_book = new Book($new_book, $id);
+        //         array_push($books, $new_book);
+        //     }
+        //     return $books;
+        // }
+
      }
  ?>
