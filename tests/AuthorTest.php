@@ -45,8 +45,21 @@
 
             // Assert
             $this->assertEquals("Sarah Farmer", $result);
-
         }
+
+        function testGetId()
+       {
+           //Arrange
+           $id = 1;
+           $name = "Wash the dog";
+           $test_name = new Author($name, $id);
+
+           //Act
+           $result = $test_name->getId();
+
+           //Assert
+           $this->assertEquals(1, $result);
+       }
     }
 
  ?>
