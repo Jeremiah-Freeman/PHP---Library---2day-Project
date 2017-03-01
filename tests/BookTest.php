@@ -86,7 +86,7 @@
             $test_book = new Book($title, $id);
             $test_book->save();
 
-            $id2 = 1;
+            $id2 = 2;
             $title2 = "Frogs happen on things too";
             $test_book2 = new Book($title2, $id2);
             $test_book2->save();
@@ -105,7 +105,7 @@
             $test_book = new Book($title, $id);
             $test_book->save();
 
-            $id2 = 1;
+            $id2 = 2;
             $title2 = "Frogs happen on things too";
             $test_book2 = new Book($title2, $id2);
             $test_book2->save();
@@ -134,5 +134,26 @@
             //Assert
             $this->assertEquals("Every dog loves cheese", $test_book->getTitle());
         }
+
+        function testDelete()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $id2 = 2;
+            $title2 = "Frogs happen on things too";
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+
+            //Act
+            $test_book->delete();
+
+            //Assert
+            $this->assertEquals([$test_book2], Book::getAll());
+        }
+
     }
  ?>
