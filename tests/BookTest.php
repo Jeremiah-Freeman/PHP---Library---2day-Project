@@ -118,5 +118,21 @@
             $this->assertEquals([], $result);
         }
 
+        function testUpdate()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $new_title = "Every dog loves cheese";
+
+            //Act
+            $test_book->update($new_title);
+
+            //Assert
+            $this->assertEquals("Every dog loves cheese", $test_book->getTitle());
+        }
     }
  ?>
