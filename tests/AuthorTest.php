@@ -18,7 +18,7 @@
         protected function teardown()
         {
             Author::deleteAll();
-            Books::deleteAll();
+            // Book::deleteAll();
         }
 
         function testGetName()

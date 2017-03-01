@@ -4,7 +4,7 @@
         private $title;
         private $id;
 
-        function __construct($title, $id)
+        function __construct($title, $id=null)
         {
             $this->title = $title;
             $this->id = $id;
@@ -19,5 +19,11 @@
         {
             return $this->title;
         }
+        function getId()
+        {
+            return $this->id;
+        }
+
+        
     }
  ?>
