@@ -155,5 +155,26 @@
             $this->assertEquals([$test_book2], Book::getAll());
         }
 
+        function testFind()
+        {
+            //Arrange
+            $id = 1;
+            $title = "Cats need chiropractors too";
+            $test_book = new Book($title, $id);
+            $test_book->save();
+
+            $id2 = 2;
+            $title2 = "Frogs happen on things too";
+            $test_book2 = new Book($title2, $id2);
+            $test_book2->save();
+
+            //Act
+            $result = Book::find($test_book->getId());
+
+            //Assert
+            $this->assertEquals($test_book, $result);
+        }
+
+
     }
  ?>
