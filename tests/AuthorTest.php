@@ -32,6 +32,21 @@
             $this->assertEquals($name, $result);
 
         }
+
+        function testSetName()
+        {
+            // Arrange
+            $name = "Gunther Marks";
+            $test_name = new Author($name);
+
+            // Act
+            $test_name->setName("Sarah Farmer");
+            $result = $test_name->getName();
+
+            // Assert
+            $this->assertEquals("Sarah Farmer", $result);
+
+        }
     }
 
  ?>
