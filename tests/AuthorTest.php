@@ -154,7 +154,25 @@
             $this->assertEquals([$test_name2],Author::getAll());
         }
 
+        function testFind()
+        {
+            //Arrange
+            $name = "Gunther Marks";
+            $id = 1;
+            $test_name = new Author($name, $id);
+            $test_name->save();
 
+            $name2 = "Sarah Farmer";
+            $id2 = 2;
+            $test_name2 = new Author($name2, $id2);
+            $test_name2->save();
+
+            //Act
+            $result = Author::find($test_name->getId());
+
+            //Assert
+            $this->assertEquals($test_name, $result);
+        }
 
     }
 
