@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Jungle Library</title>
+</head>
+<body>
+    <h1>Jungle library</h1>
+    <h2>Book: {{ found_book.getTitle }}</h2>
+
+    {% if authors is not empty %}
+        <p>Here are the authors of this book:</p>
+        <ul>
+            {% for author in authors %}
+                <li>{{ author.getName }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h4>Add an author for this book:</h4>
+
+    <form action='/add/authors' method='post'>
+        <input id="book_id" name="book_id" type="hidden" value="{{ found_book.getId }}">
+        <label for="author_id">Select an author: </label>
+        <select id='author_id' name='author_id' type='text'>
+          {% for author in authors %}
+            <option value="{{ author.getId }}"> {{ author.getName }} </option>
+          {% endfor %}
+        </select>
+        <button type='submit'>Add to Book</button>
+    </form>
+
+    <p><a href="/edit/books/{{ found_book.getId }}">Edit this book</a></p>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>

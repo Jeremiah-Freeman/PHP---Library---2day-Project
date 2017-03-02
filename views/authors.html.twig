@@ -3,7 +3,7 @@
     <title>Jungle Library</title>
 </head>
 <body>
-    <h1>Welcome to the Jungle library</h1>
+    <h1>Jungle library</h1>
     <h2>Authors</h2>
 
     {% if authors is not empty %}
@@ -15,7 +15,7 @@
         </ul>
     {% endif %}
 
-    <form action='/authors' method='post'>
+    <form action='/create/authors' method='post'>
         <label for='author_name'>Author name:</label>
         <input id='author_name' name='author_name' type='text'>
 
