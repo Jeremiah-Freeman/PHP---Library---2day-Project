@@ -32,7 +32,7 @@
 
     $app->get('/authors/{id}', function($id) use ($app) {
         $find_author = Author::find($id);
-        return $app['twig']->render('author.html.twig', ['found_author' => $find_author, 'books' => $find_author->getBooks()]);
+        return $app['twig']->render('author.html.twig', ['found_author' => $find_author, 'books' => $find_author->getBooks() , 'all_books' => Book::getAll()]);
     });
 
     $app->get("/books" , function() use ($app) {
@@ -48,6 +48,14 @@
         $new_author = new Author($_POST['author_name']);
         $new_author->save();
         return $app ['twig'] -> render ('authors.html.twig' , ['authors' => Author::getAll()]);
+    });
+
+    $app->post('/add/books', function() use ($app) {
+        $find_author = Author::find($_POST['author_id']);
+        $find_book = Book::find($_POST['book_id']);
+        var_dump($find_book);
+        $find_author->addBook($find_book);
+        return $app['twig']->render('author.html.twig', ['author' => $find_author, 'found_author' => $find_author, 'authors' => Author::getAll(), 'books' => $find_author->getBooks(), 'all_books' => Book::getAll()]);
     });
 
     $app->post("/create/books", function() use ($app) {

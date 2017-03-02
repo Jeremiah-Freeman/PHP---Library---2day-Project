@@ -85,7 +85,6 @@
             WHERE authors.id = {$this->getId()};");
             $books = [];
             foreach($returned_books as $book) {
-                echo("Hi, you got this far!");
                 $title = $book['title'];
                 $id = $book['id'];
                 $new_book = new Book($title,$id);
