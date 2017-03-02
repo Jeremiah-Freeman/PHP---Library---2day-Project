@@ -84,6 +84,11 @@
         return $app ['twig'] -> render ('books.html.twig' , ['books' => Book::getAll()]);
     });
 
+    $app->post("/delete_books", function() use($app){
+        Book::deleteAll();
+        return $app['twig']->render('books.html.twig', ['books' => Book::getAll()]);
+    });
+
 
 
     return $app;
