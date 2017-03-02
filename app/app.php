@@ -52,6 +52,12 @@
         return $app ['twig'] -> render ('authors.html.twig' , ['authors' => Author::getAll()]);
     });
 
+    $app->post("/delete_authors", function() use($app){
+        Author::deleteAll();
+        return $app['twig']->render('authors.html.twig', ['authors' => Author::getAll()]);
+    });
+
+
     // Add book to a given author
     $app->post('/add/books', function() use ($app) {
         $find_author = Author::find($_POST['author_id']);
@@ -63,6 +69,18 @@
             'authors' => Author::getAll(),
             'books' => $find_author->getBooks(),
             'all_books' => Book::getAll()]);
+    });
+
+    // List of all books
+    $app->post("/create/books", function() use ($app) {
+        $new_book = new Book($_POST['title']);
+        $new_book->save();
+        return $app ['twig'] -> render ('books.html.twig' , ['books' => Book::getAll()]);
+    });
+
+    $app->post("/delete_books", function() use($app){
+        Book::deleteAll();
+        return $app['twig']->render('books.html.twig', ['books' => Book::getAll()]);
     });
 
     $app->post('/add/authors', function() use ($app) {
@@ -77,18 +95,6 @@
             'all_authors' => Author::getAll()]);
 
         });
-    // List of all books
-    $app->post("/create/books", function() use ($app) {
-        $new_book = new Book($_POST['title']);
-        $new_book->save();
-        return $app ['twig'] -> render ('books.html.twig' , ['books' => Book::getAll()]);
-    });
-
-    $app->post("/delete_books", function() use($app){
-        Book::deleteAll();
-        return $app['twig']->render('books.html.twig', ['books' => Book::getAll()]);
-    });
-
 
 
     return $app;
