@@ -57,6 +57,7 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM authors WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authors_books WHERE authors_id = {$this->getId()};");
         }
 
         static function find($search_id)
@@ -72,29 +73,27 @@
             return $found_author;
         }
 
-        // function addBook()
-        // {
-        //     $GLOBALS['DB']->exec("INSERT INTO authors_books (author_id, book_id) VALUES ({$this->getId()}, {$this->getId()});");
-        // }
-        //
-        // function getBooks()
-        // {
-        //     $query = $GLOBALS['DB']->query("SELECT book_id FROM authors_books WHERE author_id = {$this->getId()};");
-        //     $book_ids = $query->fetchAll(PDO::FETCH_ASSOC);
-        //
-        //     $books = [];
-        //     foreach($book_id as $id) {
-        //         $book_id = $id['book_id'];
-        //         $result = $GLOBALS['DB']->query("SELECT * FROM books WHERE id = {$book_id};");
-        //         $returned_book = $result->fetchAll(PDO::FETCH_ASSOC);
-        //
-        //         $title = returned_book[0]['title'];
-        //         $id = returned_book[0]['id'];
-        //         $new_book = new Book($new_book, $id);
-        //         array_push($books, $new_book);
-        //     }
-        //     return $books;
-        // }
+        function addBook($input)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO authors_books (authors_id, books_id) VALUES ({$this->getId()}, {$input->getId()});");
+        }
+
+        function getBooks()
+        {
+            $returned_books = $GLOBALS['DB']->query("SELECT books.* FROM authors JOIN authors_books ON (authors_books.authors_id = authors.id)
+            JOIN books ON (books.id = authors_books.books_id)
+            WHERE authors.id = {$this->getId()};");
+            $books = [];
+            foreach($returned_books as $book) {
+                echo("Hi, you got this far!");
+                $title = $book['title'];
+                $id = $book['id'];
+                $new_book = new Book($title,$id);
+                array_push($books,$new_book);
+
+            }
+            return $books;
+        }
 
      }
  ?>

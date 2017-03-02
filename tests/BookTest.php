@@ -5,6 +5,7 @@
     */
 
     require_once "src/Book.php";
+    require_once "src/Author.php";
 
     $server = 'mysql:host=localhost:8889;dbname=library_test';
     $username = 'root';
@@ -138,21 +139,22 @@
         function testDelete()
         {
             //Arrange
+            $name = "Gunther Marks";
             $id = 1;
-            $title = "Cats need chiropractors too";
+            $test_author = new Author($name, $id);
+            $test_author->save();
+
+            $title = "Names dont matter";
+            $id = 2;
             $test_book = new Book($title, $id);
             $test_book->save();
 
-            $id2 = 2;
-            $title2 = "Frogs happen on things too";
-            $test_book2 = new Book($title2, $id2);
-            $test_book2->save();
-
             //Act
+            $test_book->addAuthor($test_author);
             $test_book->delete();
 
             //Assert
-            $this->assertEquals([$test_book2], Book::getAll());
+            $this->assertEquals([], $test_book->getAuthors());
         }
 
         function testFind()

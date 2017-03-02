@@ -57,7 +57,9 @@
         function delete()
         {
             $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM authors_books WHERE books_id = {$this->getId()};");
         }
+
 
         static function find($search_id)
         {
@@ -70,6 +72,28 @@
                 }
             }
             return $found_book;
+        }
+
+        function addAuthor($input)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO authors_books (authors_id, books_id) VALUES ({$this->getId()}, {$this->getId()});");
+        }
+
+        function getAuthors()
+        {
+            $returned_authors = $GLOBALS['DB']->query("SELECT authors.* FROM books JOIN authors_books ON (authors_books.books_id = books.id)
+            JOIN authors ON (authors.id = authors_books.authors_id)
+            WHERE books.id = {$this->getId()};");
+
+            $authors = [];
+            foreach($returned_authors as $author) {
+                $title = $author['title'];
+                $id = $author['id'];
+                $new_author = new Book($title,$id);
+                array_push($authors,$new_author);
+
+            }
+            return $authors;
         }
     }
  ?>
