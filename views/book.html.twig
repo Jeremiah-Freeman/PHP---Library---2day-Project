@@ -13,6 +13,8 @@
                 <li>{{ author.getName }}</li>
             {% endfor %}
         </ul>
+    {% else %}
+            <p> Hain't got nuffink!</p>
     {% endif %}
 
     <h4>Add an author for this book:</h4>
@@ -21,7 +23,7 @@
         <input id="book_id" name="book_id" type="hidden" value="{{ found_book.getId }}">
         <label for="author_id">Select an author: </label>
         <select id='author_id' name='author_id' type='text'>
-          {% for author in authors %}
+          {% for author in all_authors %}
             <option value="{{ author.getId }}"> {{ author.getName }} </option>
           {% endfor %}
         </select>

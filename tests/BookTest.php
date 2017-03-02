@@ -177,6 +177,27 @@
             $this->assertEquals($test_book, $result);
         }
 
+        function testAddAuthor()
+        {
+            //Arrange
+            $name = "franky";
+            $id = 1;
+            $new_author = new Author($name, $id);
+            $new_author->save();
+
+            $title = "How to heal rocks";
+            $id2 = 2;
+            $test_book = new Book($title, $id2);
+            $test_book->save();
+
+            // Act
+            $test_book->addAuthor($new_author);
+
+            // Assert
+            $this->assertEquals($test_book->getAuthors(), [$new_author]);
+        }
+
+
 
     }
  ?>

@@ -74,9 +74,9 @@
             return $found_book;
         }
 
-        function addAuthor($input)
+        function addAuthor($author)
         {
-            $GLOBALS['DB']->exec("INSERT INTO authors_books (authors_id, books_id) VALUES ({$this->getId()}, {$this->getId()});");
+            $GLOBALS['DB']->exec("INSERT INTO authors_books (authors_id, books_id) VALUES ({$author->getId()}, {$this->getId()});");
         }
 
         function getAuthors()
@@ -87,10 +87,10 @@
 
             $authors = [];
             foreach($returned_authors as $author) {
-                $title = $author['title'];
+                $name = $author['name'];
                 $id = $author['id'];
-                $new_author = new Book($title,$id);
-                array_push($authors,$new_author);
+                $new_author = new Author($name, $id);
+                array_push($authors, $new_author);
 
             }
             return $authors;
