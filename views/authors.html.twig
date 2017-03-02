@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Jungle Library</title>
+</head>
+<body>
+    <h1>Welcome to the Jungle library</h1>
+    <h2>Authors</h2>
+
+    {% if authors is not empty %}
+        <p>Here are all your authors:</p>
+        <ul>
+            {% for author in authors %}
+                <li><a href="/authors/{{ author.getId }}">{{ author.getName }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/authors' method='post'>
+        <label for='author_name'>Author name:</label>
+        <input id='author_name' name='author_name' type='text'>
+
+        <button type='submit'>Add Author:</button>
+    </form>
+    <form action='/delete_authors' method='post'>
+        <button type='submit'>Clear all Authors</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
