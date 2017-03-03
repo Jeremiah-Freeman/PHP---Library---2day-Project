@@ -93,7 +93,6 @@
             'books' => Book::getAll(),
             'authors' => $find_book->getAuthors(),
             'all_authors' => Author::getAll()]);
-
         });
 
     $app->get("/edit/authors/{id}", function($id) use ($app) {
