@@ -109,12 +109,36 @@
         $author->update($name);
         return $app['twig'] -> render('author.html.twig' , [
             'author' => $author,
-            'books' => $author->getBooks(), 
+            'books' => $author->getBooks(),
             'found_author' => $author,
             'all_books' => Book::getAll()
         ]);
 
     });
+
+    $app->get("/edit/books/{id}", function($id) use ($app) {
+        $book = Book::find($id);
+        return $app['twig']->render('book_edit.html.twig', ['book' => $book]);
+    });
+
+
+    $app->patch("/edit/books/{id}", function($id) use ($app) {
+        $title = $_POST['title'];
+        // $find_author = Author::find($title);
+        $book = Book::find($id);
+        $book->update($title);
+        return $app['twig'] -> render('book.html.twig' , [
+            'book' => $book,
+            'author' => $book->getAuthors(),
+            'found_book' => $book,
+            'authors' => $book->getAuthors(),
+            'all_authors' => Author::getAll()
+        ]);
+
+    });
+
+
+
 
     return $app;
 ?>
