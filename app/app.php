@@ -96,6 +96,25 @@
 
         });
 
+    $app->get("/edit/authors/{id}", function($id) use ($app) {
+        $author = Author::find($id);
+        return $app['twig']->render('author_edit.html.twig', ['author' => $author]);
+    });
+
+
+    $app->patch("/edit/authors/{id}", function($id) use ($app) {
+        $name = $_POST['name'];
+        // $find_author = Author::find($name);
+        $author = Author::find($id);
+        $author->update($name);
+        return $app['twig'] -> render('author.html.twig' , [
+            'author' => $author,
+            'books' => $author->getBooks(), 
+            'found_author' => $author,
+            'all_books' => Book::getAll()
+        ]);
+
+    });
 
     return $app;
 ?>
